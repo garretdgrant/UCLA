@@ -1,0 +1,912 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{HW1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Homework 1}\label{homework-1}
+
+\subsubsection{Name: Garret Grant}\label{name-garret-grant}
+
+\subsubsection{Collaborators: N/A}\label{collaborators-na}
+
+    This homework focuses on topics related to basic data types,
+collections, and iterations.
+
+I encourage collaborating with your peers, but the final text, code, and
+comments in this homework assignment should still be written by you.
+
+Pay special attention to the instructions - should your function
+\texttt{print} something or \texttt{return} something?
+
+\section{Submission instructions:}\label{submission-instructions}
+
+\begin{itemize}
+\tightlist
+\item
+  When you're ready to submit, click this "fastforward button":
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics{submission.png}
+\caption{image}
+\end{figure}
+
+This will reload your functions from \texttt{HW1.py} and rerun all the
+cells in your Jupyter notebook. Double check to make sure that your
+outputs remain the same as before. - Make a zip file of \texttt{HW1.py}
+and \texttt{gimme\_an\_odd\_number.py}. Do \textbf{NOT} change the file
+names. - Submit the zip file on Gradescope under "HW1 - Autograder". The
+grade you see is the grade you get for the accuracy portion of your code
+in problems 2-5 (so no surprises). The style and readability of your
+code will be checked by the reader aka human grader. - Convert this
+notebook into a pdf file and submit it on GradeScope under "HW1 - PDF".
+Make sure the figure in the last part is visible.
+
+    \subsection{Comments and Docstrings}\label{comments-and-docstrings}
+
+You will be graded in part on the quality of your documentation and
+explanation of your code. Here's what we expect:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Comments}: Use comments liberally to explain the purpose of
+  short snippets of code.
+\item
+  \textbf{Docstrings}: Functions (and, later, classes) should be
+  accompanied by a \emph{docstring}. Briefly, the docstring should
+  provide enough information that a user could correctly use your
+  function \textbf{\emph{without seeing the code.}} In somewhat more
+  detail, the docstring should include the following information:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    One or more sentences describing the overall purpose of the
+    function.
+  \item
+    An explanation of each of the inputs, including what they mean,
+    their required data types, and any additional assumptions made about
+    them.
+  \item
+    An explanation of the outputs.
+  \end{itemize}
+\end{itemize}
+
+We gave you docstrings in this homework, and you should read them all!
+In future homeworks, as well as on exams, we will be looking for clear
+and informative comments and docstrings.
+
+\subsection{Code Structure}\label{code-structure}
+
+In general, there are many good ways to solve a given problem. However,
+just getting the right result isn't enough to guarantee that your code
+is of high quality. Check the logic of your solutions to make sure that:
+
+\begin{itemize}
+\tightlist
+\item
+  You aren't making any unnecessary steps, like creating variables you
+  don't use.
+\item
+  You are effectively making use of the tools in the course, especially
+  control flow.
+\item
+  Your code is readable. Each line is short (under 80 characters), and
+  doesn't have long tangles of functions or \texttt{()} parentheses.
+\end{itemize}
+
+Ok, let's go!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} This cell imports your functions defined in HW1.py }
+        \PY{k+kn}{from} \PY{n+nn}{HW1} \PY{k}{import} \PY{n}{make\PYZus{}count\PYZus{}dictionary}
+        \PY{k+kn}{from} \PY{n+nn}{HW1} \PY{k}{import} \PY{n}{get\PYZus{}triangular\PYZus{}numbers}\PY{p}{,} \PY{n}{get\PYZus{}consonants}\PY{p}{,} \PY{n}{get\PYZus{}list\PYZus{}of\PYZus{}powers}\PY{p}{,} \PY{n}{get\PYZus{}list\PYZus{}of\PYZus{}even\PYZus{}powers}
+        \PY{k+kn}{from} \PY{n+nn}{HW1} \PY{k}{import} \PY{n}{random\PYZus{}walk}
+\end{Verbatim}
+
+
+    \section{Problem 1}\label{problem-1}
+
+\subsection{(a)}\label{a}
+
+In the cell below, define a string variable \texttt{s} such that
+\texttt{print(s)} prints:
+
+\begin{verbatim}
+Tired    : Doing math on your calculator. 
+Wired    : Doing math in Python. 
+Inspired : Training literal pythons to carry out long division using an abacus.
+\end{verbatim}
+
+The potentially tricky part here is dealing with the newlines. You can
+choose to use newline characters, or use triple quotes. See:
+https://docs.python.org/3/tutorial/introduction.html\#strings.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} define s and print it here}
+        \PY{n}{s} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{Tired    : Doing math on your calculator. }
+        \PY{l+s+s2}{Wired    : Doing math in Python. }
+        \PY{l+s+s2}{Inspired : Training literal pythons to carry out long division using an abacus.}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tired    : Doing math on your calculator. 
+Wired    : Doing math in Python. 
+Inspired : Training literal pythons to carry out long division using an abacus.
+
+    \end{Verbatim}
+
+    Next, write Python commands which use \texttt{s} to print the specified
+outputs. Feel free to use loops and comprehensions; however, keep your
+code as concise as possible. Each solution should require at most three
+short lines of code.
+
+For full credit, you should minimize the use of positional indexing
+(e.g. \texttt{s{[}5:10{]}}) when possible.
+
+\subsection{(b)}\label{b}
+
+Output:
+
+\begin{verbatim}
+Tired    
+Doing math on your calculator. 
+Wired    
+Doing math in Python. 
+Inspired 
+Training literal pythons to carry out long division using an abacus.
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{re}
+        \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{re}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:|}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{s}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{line}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tired
+Doing math on your calculator.
+Wired
+Doing math in Python.
+Inspired
+Training literal pythons to carry out long division using an abacus.
+
+    \end{Verbatim}
+
+    \subsection{(c)}\label{c}
+
+Output:
+
+\begin{verbatim}
+Tired
+Wired
+Inspired
+\end{verbatim}
+
+\textbf{Hint}: look at the endings of words. A small amount of
+positional indexing might be handy here.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{re}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:|}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{s}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n}{line}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{line}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tired
+Wired
+Inspired
+
+    \end{Verbatim}
+
+    \subsection{(d)}\label{d}
+
+Output:
+
+\begin{verbatim}
+Tired    : Doing math on your calculator. 
+Wired    : Doing math in Python. 
+\end{verbatim}
+
+\textbf{Hint}: These two lines are shorter than the other one. You are
+NOT allowed to use the fact that these are the first two sentences of
+the text.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{max\PYZus{}l}\PY{p}{,} \PY{n}{lines} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{s}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{lines}\PY{p}{:}
+            \PY{n}{max\PYZus{}l} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{line}\PY{p}{)} \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{line}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{max\PYZus{}l} \PY{k}{else} \PY{n}{max\PYZus{}l}
+        \PY{k}{for} \PY{n}{line} \PY{o+ow}{in} \PY{n}{lines}\PY{p}{:}
+            \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{line}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{max\PYZus{}l}\PY{p}{:}
+                \PY{n+nb}{print}\PY{p}{(}\PY{n}{line}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tired    : Doing math on your calculator. 
+Wired    : Doing math in Python. 
+
+    \end{Verbatim}
+
+    \subsection{(e)}\label{e}
+
+When \texttt{print\_s\_change(s)} is run with the previously defined
+\texttt{s}, it should print:
+
+\begin{verbatim}
+Tired    : Doing data science on your calculator. 
+Wired    : Doing data science in Python. 
+Inspired : Training literal pythons to carry out machine learning using an abacus.
+\end{verbatim}
+
+\textbf{Hint}: \texttt{str.replace}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k}{def} \PY{n+nf}{print\PYZus{}s\PYZus{}change}\PY{p}{(}\PY{n}{string}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{string}\PY{p}{)}
+        
+        \PY{n}{print\PYZus{}s\PYZus{}change}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Tired    : Doing math on your calculator. 
+Wired    : Doing math in Python. 
+Inspired : Training literal pythons to carry out long division using an abacus.
+
+    \end{Verbatim}
+
+    \section{\texorpdfstring{Problem 2: Define
+\texttt{make\_count\_dictionary} in
+HW1.py}{Problem 2: Define make\_count\_dictionary in HW1.py}}\label{problem-2-define-make_count_dictionary-in-hw1.py}
+
+The function \texttt{make\_count\_dictionary} takes a list \texttt{L}
+and returns a dictionary \texttt{D} where:
+
+\begin{itemize}
+\tightlist
+\item
+  The \emph{keys} of \texttt{D} are the unique elements of \texttt{L}
+  (i.e. each element of \texttt{L} appears only once).
+\item
+  The value \texttt{D{[}i{]}} is the number of times that \texttt{i}
+  appears in list \texttt{L}.
+\end{itemize}
+
+Make sure your function has a descriptive docstring and is sufficiently
+commented.
+
+Your code should work for lists of strings, lists of integers, and lists
+containing both strings and integers.
+
+For example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# input}
+\NormalTok{L }\OperatorTok{=}\NormalTok{ [}\StringTok{"a"}\NormalTok{, }\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\StringTok{"c"}\NormalTok{]}
+\CommentTok{# output}
+\NormalTok{\{}\StringTok{"a"}\NormalTok{ : }\DecValTok{2}\NormalTok{, }\StringTok{"b"}\NormalTok{ : }\DecValTok{1}\NormalTok{, }\StringTok{"c"}\NormalTok{ : }\DecValTok{1}\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} test your make\PYZus{}count\PYZus{}dictionary here, like this:}
+        \PY{c+c1}{\PYZsh{} L = [\PYZdq{}a\PYZdq{}, \PYZdq{}a\PYZdq{}, \PYZdq{}b\PYZdq{}, \PYZdq{}c\PYZdq{}]}
+        \PY{c+c1}{\PYZsh{} count\PYZus{}dict = make\PYZus{}count\PYZus{}dictionary(L)}
+        \PY{c+c1}{\PYZsh{} print(count\PYZus{}dict)}
+        
+        \PY{c+c1}{\PYZsh{} come up with other test cases (examples).}
+        
+        \PY{n}{L} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{c}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{count\PYZus{}dict} \PY{o}{=} \PY{n}{make\PYZus{}count\PYZus{}dictionary}\PY{p}{(}\PY{n}{L}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{count\PYZus{}dict}\PY{p}{)}
+        \PY{n}{L} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2} \PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{c}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+        \PY{n}{count\PYZus{}dict} \PY{o}{=} \PY{n}{make\PYZus{}count\PYZus{}dictionary}\PY{p}{(}\PY{n}{L}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{count\PYZus{}dict}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'a': 2, 'b': 1, 'c': 1\}
+\{'a': 4, 1: 1, 2: 1, 3: 1, 4: 3, 'b': 1, 'c': 1\}
+
+    \end{Verbatim}
+
+    \section{\texorpdfstring{Problem 3: Write the script
+\texttt{gimme\_an\_odd\_number.py}}{Problem 3: Write the script gimme\_an\_odd\_number.py}}\label{problem-3-write-the-script-gimme_an_odd_number.py}
+
+The \texttt{input()} function allows you to accept typed input from a
+user as a string. For example,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{=} \BuiltInTok{input}\NormalTok{(}\StringTok{"Please enter an integer."}\NormalTok{)}
+\CommentTok{# user types 7}
+\NormalTok{x}
+\CommentTok{# output }
+\CommentTok{'7'}
+\end{Highlighting}
+\end{Shaded}
+
+When \texttt{gimme\_an\_odd\_number.py} is run, it prompts to
+\texttt{"Please\ enter\ an\ integer."}. If the user inputs an even
+integer, the code should re-prompt them with the same message. If the
+user has entered an odd integer, the function should print a list of all
+numbers that the user has given so far.
+
+You may assume that the user will only input strings of integers such as
+\texttt{"3"} or \texttt{"42"}.
+
+\emph{Hint}: Try \texttt{while} and associated tools.
+
+\emph{Hint}: Which built-in Python function
+(\url{https://docs.python.org/3/library/functions.html}) can turn string
+\texttt{"3"} to integer \texttt{3}?
+
+\subsubsection{Example}\label{example}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\CommentTok{# run gimme_an_odd_number.py}
+
+\OperatorTok{>}\NormalTok{ Please enter an integer.}\DecValTok{6}
+\OperatorTok{>}\NormalTok{ Please enter an integer.}\DecValTok{8}
+\OperatorTok{>}\NormalTok{ Please enter an integer.}\DecValTok{4}
+\OperatorTok{>}\NormalTok{ Please enter an integer.}\DecValTok{9}
+\OperatorTok{>}\NormalTok{ [}\DecValTok{6}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{9}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{gimme\PYZus{}an\PYZus{}odd\PYZus{}number}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{numbers} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{k}{while} \PY{k+kc}{True}\PY{p}{:}
+                \PY{n}{number} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{input}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Please enter an integer: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+                \PY{n}{numbers}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{number}\PY{p}{)}
+                \PY{k}{if} \PY{n}{number} \PY{o}{\PYZpc{}} \PY{l+m+mi}{2} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                    \PY{k}{continue}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n+nb}{print}\PY{p}{(}\PY{n}{numbers}\PY{p}{)}
+                \PY{k}{break}
+                
+        \PY{n}{gimme\PYZus{}an\PYZus{}odd\PYZus{}number}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Please enter an integer: 3
+[3]
+
+    \end{Verbatim}
+
+    \section{Problem 4}\label{problem-4}
+
+Write list comprehensions which produce the specified list.
+
+For problems c and d, you can either write a nested list comprehension
+(https://docs.python.org/3/tutorial/datastructures.html\#nested-list-comprehensions),
+or use one loop + list comprehension inside. I would recommend the
+following steps: - write something that works with two loops (nested
+loops) - condense the inner loop into a list comprehension - try turning
+the whole thing into a nested list comprehension
+
+    \subsection{\texorpdfstring{(a) Define \texttt{get\_triangular\_numbers}
+in
+HW1.py}{(a) Define get\_triangular\_numbers in HW1.py}}\label{a-define-get_triangular_numbers-in-hw1.py}
+
+The \texttt{k}th triangular number
+(\url{https://en.wikipedia.org/wiki/Triangular_number}) is the sum of
+natural numbers up to and including \texttt{k}. Write
+\texttt{get\_triangular\_numbers} such that for a given \texttt{k}, it
+returns a list of the first \texttt{k} triangular numbers.
+
+For example, the sixth triangular number is
+
+\[1+2+3+4+5+6 = 21,\]
+
+and running \texttt{get\_triangular\_numbers} with an argument of
+\texttt{k=6} should output \texttt{{[}1,\ 3,\ 6,\ 10,\ 15,\ 21{]}}. You
+function should have a docstring.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} test your get\PYZus{}triangular\PYZus{}numbers here}
+        \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{3}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{get\PYZus{}triangular\PYZus{}numbers}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{k} \PY{o}{=} \PY{l+m+mi}{10}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{get\PYZus{}triangular\PYZus{}numbers}\PY{p}{(}\PY{n}{k}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[1, 3, 6]
+[1, 3, 6, 10, 15, 21, 28, 36, 45, 55]
+
+    \end{Verbatim}
+
+    \subsection{\texorpdfstring{(b) Define \texttt{get\_consonants} in
+HW1.py}{(b) Define get\_consonants in HW1.py}}\label{b-define-get_consonants-in-hw1.py}
+
+The function \texttt{get\_consonants} taks a string \texttt{s} as an
+input, and returns a list of the letters in \texttt{s} \textbf{except
+for vowels, spaces, commas, and periods.} For the purposes of this
+example, an English vowel is any of the letters
+\texttt{{[}"a",\ "e",\ "i",\ "o",\ "u"{]}}. For example:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s }\OperatorTok{=} \StringTok{"make it so, number one"}
+\BuiltInTok{print}\NormalTok{(get_consonants(s))}
+\NormalTok{[}\StringTok{"m"}\NormalTok{, }\StringTok{"k"}\NormalTok{, }\StringTok{"t"}\NormalTok{, }\StringTok{"s"}\NormalTok{, }\StringTok{"n"}\NormalTok{, }\StringTok{"m"}\NormalTok{, }\StringTok{"b"}\NormalTok{, }\StringTok{"r"}\NormalTok{, }\StringTok{"n"}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\emph{Hint:} Consider the following code:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{l }\OperatorTok{=} \StringTok{"a"}
+\NormalTok{l }\KeywordTok{not} \KeywordTok{in}\NormalTok{ [}\StringTok{"e"}\NormalTok{, }\StringTok{"w"}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} test your get\PYZus{}consonants here}
+         \PY{n}{s} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{make it so, number one}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{get\PYZus{}consonants}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['m', 'k', 't', 's', 'n', 'm', 'b', 'r', 'n']
+
+    \end{Verbatim}
+
+    \subsection{\texorpdfstring{(c) Define \texttt{get\_list\_of\_powers} in
+HW1.py}{(c) Define get\_list\_of\_powers in HW1.py}}\label{c-define-get_list_of_powers-in-hw1.py}
+
+The function \texttt{get\_list\_of\_powers} takes in a list \texttt{X}
+and integer \texttt{k} and returns a list \texttt{L} whose elements are
+themselves lists. The \texttt{i}th element of \texttt{L} contains the
+powers of \texttt{X{[}i{]}} from \texttt{0} to \texttt{k}.
+
+For example, running \texttt{get\_list\_of\_powers} with inputs
+\texttt{X\ =\ {[}5,\ 6,\ 7{]}} and \texttt{k\ =\ 2} will return
+\texttt{{[}{[}1,\ 5,\ 25{]},\ {[}1,\ 6,\ 36{]},\ {[}1,\ 7,\ 49{]}{]}}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} test your get\PYZus{}list\PYZus{}of\PYZus{}powers here}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{get\PYZus{}list\PYZus{}of\PYZus{}powers}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[1, 5, 25], [1, 6, 36], [1, 7, 49]]
+
+    \end{Verbatim}
+
+    \subsection{\texorpdfstring{(d) Define
+\texttt{get\_list\_of\_even\_powers} in
+HW1.py}{(d) Define get\_list\_of\_even\_powers in HW1.py}}\label{d-define-get_list_of_even_powers-in-hw1.py}
+
+As in \textbf{(c)}, the function \texttt{get\_list\_of\_even\_powers}
+takes in a list \texttt{X} and inter \texttt{k}, and returns a list
+\texttt{L} whose elements are themselves lists. But now \texttt{L}
+includes only even powers of elements of \texttt{X}. For example,
+running \texttt{get\_list\_of\_even\_powers} with inputs
+\texttt{X\ =\ {[}5,\ 6,\ 7{]}} and \texttt{k\ =\ 8} should return
+\texttt{{[}{[}1,\ 25,\ 625,\ 15625,\ 390625{]},\ \ {[}1,\ 36,\ 1296,\ 46656,\ 1679616{]},\ \ {[}1,\ 49,\ 2401,\ 117649,\ 5764801{]}{]}}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} test your get\PYZus{}list\PYZus{}of\PYZus{}even\PYZus{}powers here}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{get\PYZus{}list\PYZus{}of\PYZus{}even\PYZus{}powers}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[1, 25, 625, 15625, 390625], [1, 36, 1296, 46656, 1679616], [1, 49, 2401, 117649, 5764801]]
+
+    \end{Verbatim}
+
+    \section{\texorpdfstring{Problem 5: Define \texttt{random\_walk} in
+HW1.py}{Problem 5: Define random\_walk in HW1.py}}\label{problem-5-define-random_walk-in-hw1.py}
+
+In this problem, we'll simulate the \emph{simple random walk}, perhaps
+the most important discrete-time stochastic process. Random walks are
+commonly used to model phenomena in physics, chemistry, biology, and
+finance. In the simple random walk, at each timestep we flip a fair
+coin. If heads, we move foward one step; if tails, we move backwards.
+Let "forwards" be represented by positive integers, and "backwards" be
+represented by negative integers. For example, if we are currently three
+steps backwards from the starting point, our position is \texttt{-3}.
+
+Write \texttt{random\_walk} to simulate a random walk. Your function
+should:
+
+\begin{itemize}
+\tightlist
+\item
+  Take an upper and lower bound as inputs.
+\item
+  Return three variables \texttt{pos}, \texttt{positions},
+  \texttt{steps}, in that order.
+\item
+  \texttt{pos} is an integer, and indicates the walk's final position at
+  termination.
+\item
+  \texttt{positions} is a list of integers, and it is a log of the
+  position of the walk at each time step.
+\item
+  \texttt{steps} is a list of integers, and it is a log of the results
+  of the coin flips.
+\item
+  Please read the provided docstrings for more details on what the
+  autograder expects.
+\end{itemize}
+
+When the walk reaches the upper or lower bound, print a message such as
+\texttt{Upper\ bound\ at\ 3\ reached} and terminate the walk.
+
+Your code should include at least one instance of an \texttt{elif}
+statement and at least one instance of a \texttt{break} statement.
+
+    \textbf{Hint} To simulate a fair coin toss, try running the following
+cell multiple times. You don't have to use \texttt{"heads"} and
+\texttt{"tails"} when using this function -\/- can you think of a more
+useful choice set?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k+kn}{import} \PY{n+nn}{random}
+         \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{n}{x} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{heads}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tails}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+tails
+heads
+heads
+heads
+heads
+heads
+heads
+heads
+heads
+tails
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} test your random\PYZus{}walk here}
+         \PY{n}{pos}\PY{p}{,} \PY{n}{positions}\PY{p}{,} \PY{n}{steps} \PY{o}{=} \PY{n}{random\PYZus{}walk}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{pos}\PY{p}{,} \PY{n}{positions}\PY{p}{,} \PY{n}{steps}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+-3 [-1, -2, -3] [-1, -1, -1]
+
+    \end{Verbatim}
+
+    Finally, you might be interested in visualizing the walk. Run the
+following cell to produce a plot. When the bounds are set very large,
+the resulting visualization can be quite intriguing and attractive. It
+is not necessary for you to understand the syntax of these commands at
+this stage.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{pos}\PY{p}{,} \PY{n}{positions}\PY{p}{,} \PY{n}{steps} \PY{o}{=} \PY{n}{random\PYZus{}walk}\PY{p}{(}\PY{l+m+mi}{5000}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{5000}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{positions}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Timestep}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Position}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Random Walk}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} yall 5000, trying to break my computer, chillll}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
