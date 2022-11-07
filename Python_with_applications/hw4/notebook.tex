@@ -1,0 +1,902 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{HW4}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Homework 5}\label{homework-5}
+
+    \subsection{Problem 1: Faceted
+Histogram}\label{problem-1-faceted-histogram}
+
+Run the following code block to define a function which generates two
+1-dimensional \texttt{numpy} arrays. The first array, called
+\texttt{groups}, consists of integers between \texttt{0} and
+\texttt{n\_groups\ -\ 1}, inclusive. The second array, called
+\texttt{data}, consists of real numbers.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} \PY{k}{as} \PY{n}{plt}
+        
+        \PY{k}{def} \PY{n+nf}{create\PYZus{}data}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{n\PYZus{}groups}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    generate a set of fake data with group labels. }
+        \PY{l+s+sd}{    n data points and group labels are generated. }
+        \PY{l+s+sd}{    n\PYZus{}groups controls the number of distinct groups. }
+        \PY{l+s+sd}{    Returns an np.array() of integer group labels and an }
+        \PY{l+s+sd}{    np.array() of float data. }
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            
+            \PY{c+c1}{\PYZsh{} random group assignments as integers between 0 and n\PYZus{}groups\PYZhy{}1, inclusive}
+            \PY{n}{groups} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{n\PYZus{}groups}\PY{p}{,} \PY{n}{n}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} function of the groups plus gaussian noise (bell curve)}
+            \PY{n}{data}   \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sin}\PY{p}{(}\PY{n}{groups}\PY{p}{)} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randn}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+            
+            \PY{k}{return}\PY{p}{(}\PY{n}{groups}\PY{p}{,} \PY{n}{data}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Part A}\label{part-a}
+
+Write a function called \texttt{facet\_hist()}. This function should
+accept five arguments:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \texttt{groups}, the \texttt{np.array} of group labels as output by
+  \texttt{create\_data()}.
+\item
+  \texttt{data}, the \texttt{np.array} of data as output by
+  \texttt{create\_data()}.
+\item
+  \texttt{m\_rows}, the number of desired rows in your faceted histogram
+  (explanation coming).
+\item
+  \texttt{m\_cols}, the number of desired columns in your faceted
+  histogram (explanation coming).
+\item
+  \texttt{figsize}, the size of the figure.
+\end{enumerate}
+
+Your function will create faceted histograms -\/- that is, a separate
+axis and histogram for each group. For example, if there are six groups
+in the data, then you should be able to use the code
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{groups, data }\OperatorTok{=}\NormalTok{ create_data(}\DecValTok{1000}\NormalTok{, }\DecValTok{6}\NormalTok{)}
+\NormalTok{facet_hist(groups, data, m_rows }\OperatorTok{=} \DecValTok{2}\NormalTok{, m_cols }\OperatorTok{=} \DecValTok{3}\NormalTok{, figsize }\OperatorTok{=}\NormalTok{ (}\DecValTok{6}\NormalTok{,}\DecValTok{4}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+to create a plot like this:
+
+It's fine if your group labels run left-to-right (so that the top row
+has labels 0, 1, and 2 rather than 0, 2, 4).
+
+You should also be able to change the orientation by modifying
+\texttt{m\_rows}, \texttt{m\_cols}, and \texttt{figsize}.
+
+\begin{verbatim}
+facet_hist(groups, data, m_rows = 3, m_cols = 2, figsize = (4,6))
+\end{verbatim}
+
+\subsubsection{Requirements:}\label{requirements}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Your function should work \textbf{whenever \texttt{m\_rows*m\_cols} is
+  equal to the total number of groups.} Your function should first check
+  that this is the case, and raise an informative \texttt{ValueError} if
+  not. You may assume that there is at least one data point for each
+  group label in the data supplied.
+\item
+  For full credit, you should not loop over the individual entries of
+  \texttt{groups} or \texttt{data}. It is acceptable to loop over the
+  distinct values of \texttt{groups}. In general, aim to minimize
+  \texttt{for}-loops and maximize use of \texttt{Numpy} indexing.
+\item
+  Use of \texttt{pandas} is acceptable but unnecessary, and is unlikely
+  to make your solution significantly simpler.
+\item
+  You should include a horizontal axis label (of your choice) along
+  \textbf{only the bottom row} of axes.
+\item
+  You should include a vertical axis label (e.g. "Frequency") along
+  \textbf{only the leftmost column of axes.}
+\item
+  Each axis should have an axis title of the form "Group X", as shown
+  above.
+\item
+  Comments and docstrings!
+\end{enumerate}
+
+\subsubsection{Hints}\label{hints}
+
+\begin{itemize}
+\tightlist
+\item
+  If your plots look "squished," then \texttt{plt.tight\_layout()} is
+  sometimes helpful. Just call it after constructing your figure, with
+  no arguments.
+\item
+  Integer division \texttt{i\ //\ j} and remainders \texttt{i\ \%\ j}
+  are helpful here, although other solutions are also possible.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{c+c1}{\PYZsh{} your solution here}
+         \PY{k}{def} \PY{n+nf}{facet\PYZus{}hist}\PY{p}{(}\PY{n}{groups}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{n}{m\PYZus{}rows}\PY{p}{,} \PY{n}{m\PYZus{}cols}\PY{p}{,} \PY{n}{figsize}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}\PY{p}{:}
+             \PY{n}{n} \PY{o}{=} \PY{n}{m\PYZus{}rows} \PY{o}{*} \PY{n}{m\PYZus{}cols}
+             
+             \PY{k}{if} \PY{n}{n} \PY{o}{!=} \PY{n}{groups}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{:}
+                 \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m\PYZus{}rows*m\PYZus{}cols must be equal to number of groups}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             
+             \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{m\PYZus{}rows}\PY{p}{,} \PY{n}{m\PYZus{}cols}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{n}{figsize}\PY{p}{)}
+             
+             \PY{n}{color} \PY{o}{=} \PY{n}{kwargs}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{color}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{group\PYZus{}tracker} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{m\PYZus{}rows}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n+nb}{range} \PY{p}{(}\PY{n}{m\PYZus{}cols}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{ix} \PY{o}{=} \PY{n}{groups} \PY{o}{==} \PY{n}{group\PYZus{}tracker}
+                     \PY{n}{group\PYZus{}data} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{n}{ix}\PY{p}{]}
+                     \PY{n}{ax}\PY{p}{[}\PY{n}{row}\PY{p}{,}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{group\PYZus{}data}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{kwargs}\PY{p}{)}
+                     \PY{n}{ax}\PY{p}{[}\PY{n}{row}\PY{p}{,} \PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Group }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{group\PYZus{}tracker}\PY{p}{)}\PY{p}{)}
+                     \PY{n}{ax}\PY{p}{[}\PY{n}{row}\PY{p}{,}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                     \PY{n}{ax}\PY{p}{[}\PY{n}{row}\PY{p}{,}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Frequency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                     \PY{n}{group\PYZus{}tracker} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+             
+             \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{c+c1}{\PYZsh{} test code}
+         \PY{n}{groups}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{create\PYZus{}data}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n}{facet\PYZus{}hist}\PY{p}{(}\PY{n}{groups}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{groups}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{create\PYZus{}data}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n}{facet\PYZus{}hist}\PY{p}{(}\PY{n}{groups}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{n}{m\PYZus{}rows} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{m\PYZus{}cols} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{c+c1}{\PYZsh{} test code}
+         \PY{n}{groups}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{create\PYZus{}data}\PY{p}{(}\PY{l+m+mi}{3000}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}
+         \PY{n}{facet\PYZus{}hist}\PY{p}{(}\PY{n}{groups}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Part B}\label{part-b}
+
+Modify your function (it's ok to modify it in place, no need for
+copy/paste) so that it accepts additional \texttt{**kwargs} passed to
+\texttt{ax.hist()}. For example,
+
+\begin{verbatim}
+facet_hist(groups, data, 2, 3, figsize = (6, 4), alpha = .4, color = "firebrick")
+\end{verbatim}
+
+should produce
+
+Example output.
+
+You should be able to run this code \textbf{without defining parameters
+\texttt{alpha} and \texttt{color} for \texttt{facet\_hist()}.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{c+c1}{\PYZsh{} run this code to show that your modified function works}
+         \PY{n}{groups}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{create\PYZus{}data}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n}{facet\PYZus{}hist}\PY{p}{(}\PY{n}{groups}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{firebrick}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{groups}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{create\PYZus{}data}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}
+         \PY{n}{facet\PYZus{}hist}\PY{p}{(}\PY{n}{groups}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pink}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Problem 2: Scatterplot
+Matrices}\label{problem-2-scatterplot-matrices}
+
+Run the following code to download, import, and display a data set from
+the 2019 World Happiness Report.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}181}]:} \PY{c+c1}{\PYZsh{} if you experience ConnectionRefused errors, you may instead }
+          \PY{c+c1}{\PYZsh{} copy the url into your browser, save the file as data.csv }
+          \PY{c+c1}{\PYZsh{} in the same directory as the notebook, and then replace the }
+          \PY{c+c1}{\PYZsh{} third line with }
+          \PY{c+c1}{\PYZsh{} happiness = pd.read\PYZus{}csv(\PYZdq{}data.csv\PYZdq{})}
+          
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{n}{url} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://philchodrow.github.io/PIC16A/datasets/world\PYZus{}happiness\PYZus{}report/2019.csv}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{happiness} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{url}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} happiness}
+\end{Verbatim}
+
+
+    This is a \texttt{pandas} data frame. Observe the following:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Each row corresponds to a country or region.
+\item
+  The \texttt{Score} column is the overall happiness score of the
+  country, evaluated via surveys.
+\item
+  The other columns give indicators of different features of life in the
+  country, including GDP, level of social support, life expectancy,
+  freedom, generosity of compatriots, and perceptions of corruption in
+  governmental institutions.
+\end{enumerate}
+
+You can extract each of these columns using dictionary-like syntax:
+
+\texttt{python\ \ happiness{[}"Score"{]}}
+
+\texttt{0\ \ \ \ \ \ 7.769\ 1\ \ \ \ \ \ 7.600\ 2\ \ \ \ \ \ 7.554\ 3\ \ \ \ \ \ 7.494\ 4\ \ \ \ \ \ 7.488\ \ \ \ \ \ \ \ ...\ \ \ 151\ \ \ \ 3.334\ 152\ \ \ \ 3.231\ 153\ \ \ \ 3.203\ 154\ \ \ \ 3.083\ 155\ \ \ \ 2.853\ Name:\ Score,\ Length:\ 156,\ dtype:\ float64}
+
+Technically, this output is a \texttt{pandas} \texttt{Series}; however,
+in this context (and most others) it's fine to simply think of it as a
+1-dimensional \texttt{np.array()}.
+
+    \subsubsection{Part A}\label{part-a}
+
+As a warmup, create a scatterplot of the overall \texttt{Score} column
+against a numerical column of your choice. Give the horizontal and
+vertical axes appropriate labels. Discuss your result. Is there a
+correlation? Does that correlation make sense to you?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}173}]:} \PY{c+c1}{\PYZsh{} plotting code here}
+          \PY{n}{x} \PY{o}{=} \PY{n}{happiness}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Social support}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{y} \PY{o}{=} \PY{n}{happiness}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Social Support}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}173}]:} Text(0,0.5,'Score')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\emph{Discuss here} * There seems to be a strong correlation between
+social support and overall happiness score. This makes sense as people
+tend to be happier when supported. -\/-\/-
+
+    \subsection{Part B}\label{part-b}
+
+That plot you made may have helped you understand whether or not there's
+a relationship between the overall happiness score and the variable that
+you chose to plot. However, there are several variables in this data
+set, and we don't want to manually re-run the plot for each pair of
+variables. Let's see if we can get a more systematic view of the
+correlations in the data.
+
+Write a function called \texttt{scatterplot\_matrix()}, with arguments
+\texttt{cols} and \texttt{figsize}. The \texttt{cols} argument should be
+a list of strings, each of which are the name of one of the columns
+above, for example
+\texttt{cols\ =\ {[}"Score",\ "GDP\ per\ capita",\ "Social\ support"{]}}.
+Your function should create a \emph{scatterplot matrix}, like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cols }\OperatorTok{=}\NormalTok{ [}\StringTok{"Score"}\NormalTok{, }
+        \StringTok{"GDP per capita"}\NormalTok{, }
+        \StringTok{"Social support"}\NormalTok{]}
+           
+\NormalTok{scatterplot_matrix(cols,figsize }\OperatorTok{=}\NormalTok{ (}\DecValTok{7}\NormalTok{,}\DecValTok{7}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+There is a separate scatterplot for each possible pair of variables. In
+fact, there are two: one where the first variable is on the horizontal
+axis, and one where it's on the vertical axis. Some analysts prefer to
+remove half the plots to avoid redundancy, but you don't have to bother
+with that. The diagonal is empty, since there's no point in
+investigating the relationship between a variable and itself.
+
+Don't forget comments and docstrings!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{c+c1}{\PYZsh{} define your function}
+          \PY{k}{def} \PY{n+nf}{scatterplot\PYZus{}matrix}\PY{p}{(}\PY{n}{cols}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{n}{fig}\PY{p}{,} \PY{n}{axs} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{cols}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{cols}\PY{p}{)}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{n}{figsize}\PY{p}{)}
+              \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{col1} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{cols}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{j}\PY{p}{,} \PY{n}{col2} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{cols}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{row}\PY{p}{,} \PY{n}{col} \PY{o}{=} \PY{n}{i}\PY{p}{,} \PY{n}{j}
+                      \PY{n}{axs}\PY{p}{[}\PY{n}{row}\PY{p}{,}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{n}{col1}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mf}{20.0}\PY{p}{)}
+                      \PY{n}{axs}\PY{p}{[}\PY{n}{row}\PY{p}{,}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{n}{col2}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mf}{20.0}\PY{p}{)}
+                      \PY{k}{if} \PY{n}{col1} \PY{o}{==} \PY{n}{col2}\PY{p}{:}
+                          \PY{k}{continue}
+                      \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{happiness}\PY{p}{[}\PY{n}{col1}\PY{p}{]}\PY{p}{,} \PY{n}{happiness}\PY{p}{[}\PY{n}{col2}\PY{p}{]}
+                      \PY{n}{corr\PYZus{}coef} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{corrcoef}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                      \PY{n}{axs}\PY{p}{[}\PY{n}{row}\PY{p}{,} \PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{rho\PYZdl{} = }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{n}{corr\PYZus{}coef}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mf}{20.0}\PY{p}{)}
+                      \PY{n}{axs}\PY{p}{[}\PY{n}{row}\PY{p}{,}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+                      
+              \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+                      
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{c+c1}{\PYZsh{} test your code, several times if needed, and discuss the correlations you observe. }
+          \PY{c+c1}{\PYZsh{} Add code cells if needed to show multiple outputs. }
+          \PY{n}{scatterplot\PYZus{}matrix}\PY{p}{(} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GDP per capita}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                  \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Social support}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Part C}\label{part-c}
+
+The \emph{correlation coefficient} is a measure of linear correlation
+between two variables. The correlation coefficient between \(X\) and
+\(Y\) is high if \(X\) tends to be high when \(Y\) is, and vice versa.
+Correlation coefficients lie in the interval \([-1, 1]\).
+
+\texttt{numpy} provides a function to conveniently compute the
+correlation coefficient between two or more variables. Find it, and then
+use it to add "captions" (as horizontal axis labels) to each panel of
+your plot giving the correlation coefficient between the plotted
+variables. For example,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cols }\OperatorTok{=}\NormalTok{ [}\StringTok{"Score"}\NormalTok{, }
+        \StringTok{"GDP per capita"}\NormalTok{, }
+        \StringTok{"Social support"}\NormalTok{]}
+           
+\NormalTok{scatterplot_matrix(cols,figsize }\OperatorTok{=}\NormalTok{ (}\DecValTok{7}\NormalTok{,}\DecValTok{7}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+It's not required that you add the Greek letter \(\rho\) (the classical
+symbol for correlation coefficients), but if you do want to, here's how.
+You can also tweak the rounding as desired.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ax.}\BuiltInTok{set}\NormalTok{(xlabel }\OperatorTok{=} \VerbatimStringTok{r"$\textbackslash{}rho$ = "} \OperatorTok{+} \BuiltInTok{str}\NormalTok{(np.}\BuiltInTok{round}\NormalTok{(my_number, }\DecValTok{2}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+    Run your code on several different subsets of the columns. It's ok to
+simply re-run your Part B results where they are and show the output
+including the correlation coefficient. Discuss your findings. What
+positive correlations do you observe? Do they make sense? Are there any
+negative correlations? Do the quantitative results match what you see
+"by eye"?
+
+If you were going to create a model to attempt to predict overall
+happiness from other indicators, which columns would you use? Why?
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\emph{Discuss here} * I would use columns that have the highest
+correlation with overall happiness score.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \subsection{Problem 3: Plotting Time
+Series}\label{problem-3-plotting-time-series}
+
+Run the following code to download two time series data sets: -
+Historical data on the Dow Jones Industrial Average (a composite
+performance measure of the US stock market), retrieved from Yahoo
+Finance. - Cumulative COVID19 cases over time, from the
+\href{https://github.com/nytimes/covid-19-data}{New York Times}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}113}]:} \PY{c+c1}{\PYZsh{} run this block}
+          \PY{c+c1}{\PYZsh{} if you experience ConnectionRefused errors, you may instead }
+          \PY{c+c1}{\PYZsh{} copy the urls into your browser, save the files as DJI.csv }
+          \PY{c+c1}{\PYZsh{} and COVID.csv respectively in the same directory as the notebook.}
+          \PY{c+c1}{\PYZsh{} Then, in the lines using the function pd.read\PYZus{}csv(), replace }
+          \PY{c+c1}{\PYZsh{} the url with \PYZdq{}DJI.csv\PYZdq{} and \PYZdq{}COVID.csv\PYZdq{} }
+          
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{datetime}
+          
+          \PY{n}{url} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://query1.finance.yahoo.com/v7/finance/download/}\PY{l+s+si}{\PYZpc{}5E}\PY{l+s+s2}{DJI?period1=1580750232\PYZam{}period2=1712372632\PYZam{}interval=1d\PYZam{}events=history\PYZam{}includeAdjustedClose=true}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{DJI} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{url}\PY{p}{)}
+          \PY{n}{DJI}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{DJI}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{DJI} \PY{o}{=} \PY{n}{DJI}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+          
+          \PY{n}{url} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://raw.githubusercontent.com/nytimes/covid\PYZhy{}19\PYZhy{}data/master/us.csv}\PY{l+s+s2}{\PYZdq{}}
+          \PY{n}{COVID} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{url}\PY{p}{)}
+          \PY{n}{COVID}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{COVID}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Part A}\label{part-a}
+
+The series \texttt{COVID{[}\textquotesingle{}cases\textquotesingle{}{]}}
+is essentially a \texttt{numpy} array containing the cumulative case
+counts over time. The COVID19 case data is cumulative, but we would like
+to see the number of new cases per day (i.e. as in
+\href{https://www.google.com/search?q=covid+stats}{this kind of plot}).
+Check the documentation for the \texttt{np.diff} function and figure out
+what it does. Use it appropriately to construct a new array, called
+\texttt{per\_day}, giving the number of new cases per day. Then, make a
+new array called \texttt{per\_day\_date} that gives the appropriate date
+for each case count. In particular, you will need to ensure that
+\texttt{per\_day} and \texttt{per\_day\_date} have the same shape.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}138}]:} \PY{c+c1}{\PYZsh{} your solution here}
+          \PY{n}{per\PYZus{}day} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{diff}\PY{p}{(}\PY{n}{COVID}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{per\PYZus{}day\PYZus{}date} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{COVID}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Covid Cases per Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mf}{30.0}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{per\PYZus{}day\PYZus{}date}\PY{p}{,}\PY{n}{per\PYZus{}day}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cases per Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{tick\PYZus{}params}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{both}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{which}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{major}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{labelsize}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Part B}\label{part-b}
+
+Create a figure with two very wide axes, one on top of the other (i.e.
+two rows, one column). Use the \texttt{sharex} argument of
+\texttt{plt.subplots()} to ensure that these two plots will share the
+same horizontal axis.
+
+Then:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  On the upper axis, plot the Dow Jones Industrial Average over time.
+  For the horizontal axis use
+  \texttt{DJI{[}\textquotesingle{}date\textquotesingle{}{]}}; the for
+  the vertical use
+  \texttt{DJI{[}\textquotesingle{}Close\textquotesingle{}{]}}.
+\item
+  On the lower axis, plot the variables \texttt{per\_day\_date} and
+  \texttt{per\_day} to visualize the progress of the COVID19 pandemic
+  over time. Use a different color for the trendline.
+\end{enumerate}
+
+Give your plot horizontal and vertical axis labels.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}180}]:} \PY{c+c1}{\PYZsh{} your solution here}
+          \PY{c+c1}{\PYZsh{} modify this block in the remaining parts of the problem }
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}
+          \PY{n}{fig}\PY{p}{,} \PY{n}{axs} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{sharex}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+          \PY{n}{x1} \PY{o}{=} \PY{n}{DJI}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{y1} \PY{o}{=} \PY{n}{DJI}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Close}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dow Average vs Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DJI Average}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x1}\PY{p}{,}\PY{n}{y1}\PY{p}{)}
+          \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{axvspan}\PY{p}{(}\PY{n}{datetime}\PY{o}{.}\PY{n}{datetime}\PY{p}{(}\PY{l+m+mi}{2020}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}
+                        \PY{n}{datetime}\PY{o}{.}\PY{n}{datetime}\PY{p}{(}\PY{l+m+mi}{2020}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{)}\PY{p}{,} 
+                        \PY{n}{alpha} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{3}\PY{p}{,} 
+                        \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gray}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{datetime}\PY{o}{.}\PY{n}{datetime}\PY{p}{(}\PY{l+m+mi}{2020}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} 
+                     \PY{l+m+mi}{22000}\PY{p}{,} 
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Covid Market Crash}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+          \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Covid Cases per Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{} of Cases}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{per\PYZus{}day\PYZus{}date}\PY{p}{,} \PY{n}{per\PYZus{}day}\PY{p}{)}
+          \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{axvspan}\PY{p}{(}\PY{n}{datetime}\PY{o}{.}\PY{n}{datetime}\PY{p}{(}\PY{l+m+mi}{2021}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}
+                        \PY{n}{datetime}\PY{o}{.}\PY{n}{datetime}\PY{p}{(}\PY{l+m+mi}{2022}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{28}\PY{p}{)}\PY{p}{,} 
+                        \PY{n}{alpha} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{3}\PY{p}{,} 
+                        \PY{n}{color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gray}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{axs}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{datetime}\PY{o}{.}\PY{n}{datetime}\PY{p}{(}\PY{l+m+mi}{2022}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} 
+                     \PY{l+m+mi}{800000}\PY{p}{,} 
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Peak covid cases per day}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{)}
+          \PY{n}{font} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weight}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bold}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}   \PY{p}{:} \PY{l+m+mi}{22}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{matplotlib}\PY{o}{.}\PY{n}{rc}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{font}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{o}{*}\PY{o}{*}\PY{n}{font}\PY{p}{)}
+          \PY{n}{DJI}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}180}]:}            Open          High           Low         Close     Adj Close  \textbackslash{}
+          0  28319.650391  28630.390625  28319.650391  28399.810547  28399.810547   
+          1  28696.740234  28904.880859  28696.740234  28807.630859  28807.630859   
+          2  29048.730469  29308.890625  29000.849609  29290.849609  29290.849609   
+          3  29388.580078  29408.050781  29246.929688  29379.769531  29379.769531   
+          4  29286.919922  29286.919922  29056.980469  29102.509766  29102.509766   
+          
+                Volume       date  
+          0  307910000 2020-02-03  
+          1  332750000 2020-02-04  
+          2  357540000 2020-02-05  
+          3  263700000 2020-02-06  
+          4  252860000 2020-02-07  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+/home/garretg/anaconda3/lib/python3.6/site-packages/matplotlib/font\_manager.py:1328: UserWarning: findfont: Font family ['normal'] not found. Falling back to DejaVu Sans
+  (prop.get\_family(), self.defaultFamily[fontext]))
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Part C}\label{part-c}
+
+The command
+
+\begin{verbatim}
+ax[0].axvspan(datetime.datetime(2020,6,1),
+              datetime.datetime(2020,6,30), 
+              alpha = .3, 
+              color = "gray")
+\end{verbatim}
+
+will add a simple rectangular shade which can be used to highlight
+specific portions of a time-series. In the given code, this shade runs
+through the month of June 2020. Add at least two such rectangular shades
+to your figure corresponding to important time intervals. You can put
+two shades on one axis, or one on each. If you're not sure what time
+periods are important, just choose intervals at random. Feel free to
+modify the color and transparency as desired. You can modify your figure
+code from Part B -\/- no need for copy/paste.
+
+\subsection{Part D}\label{part-d}
+
+The command
+
+\begin{verbatim}
+ax[0].text(datetime.datetime(2020,9,15), 
+           22000, 
+           "penguins?\npenguins!")
+\end{verbatim}
+
+will add a fun text annotation to your plot, with the first letter in
+horizontal position corresponding to September 15th, and at vertical
+position 22,000. Annotate each of your shaded regions with a few words
+describing their significance. Again, just modify your Part B code.
+
+\subsection{Part E}\label{part-e}
+
+Add an overall title, spruce up your axis labels, and add anything else
+you think will make the plot look good. Again, you can just modify your
+Part B code, without copy/paste.
+
+Then, submit a job application at www.FiveThirtyEight.com and show Nate
+Silver your cool data visualization.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
